@@ -44,15 +44,19 @@ const App: React.FC = () => {
             return;
         }
         
-        const pricePerGram = jPrice / jWeight;
-        const pricePerTola = pricePerGram * 10;
-        const markupAmount = jPrice - actualGoldValue;
-        const markupPercentage = (markupAmount / actualGoldValue) * 100;
+        const jewelryPricePerGram = jPrice / jWeight;
+        const totalMarkup = jPrice - actualGoldValue;
+        const markupPercentage = (totalMarkup / actualGoldValue) * 100;
+        const goldPricePerGramOfJewelry = goldPricePerGram * purity;
+        const markupPerGram = jewelryPricePerGram - goldPricePerGramOfJewelry;
 
         setResults({
-            pricePerGram,
-            pricePerTola,
+            jewelryPricePerGram,
             markupPercentage,
+            goldPricePerGramOfJewelry,
+            markupPerGram,
+            totalMarkup,
+            totalGoldValue: actualGoldValue,
         });
     };
 
@@ -138,21 +142,36 @@ const App: React.FC = () => {
                 {results && (
                      <div className="bg-gray-900/50 p-6 border-t-2 border-yellow-400/20">
                         <h2 className="text-xl font-semibold text-center mb-6 text-yellow-300">Calculation Results</h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
                             <ResultCard
-                                label="Price per Gram"
-                                value={`$${results.pricePerGram.toFixed(2)}`}
+                                label="Jewelry Price / Gram"
+                                value={`$${results.jewelryPricePerGram.toFixed(2)}`}
                                 description="Total price divided by weight"
                             />
+                             <ResultCard
+                                label="Gold Price / Gram"
+                                value={`$${results.goldPricePerGramOfJewelry.toFixed(2)}`}
+                                description={`Raw price of ${karat}K gold per gram`}
+                            />
                             <ResultCard
-                                label="Price per Tola (10g)"
-                                value={`$${results.pricePerTola.toFixed(2)}`}
-                                description="Standardized for comparison"
+                                label="Markup / Gram"
+                                value={`$${results.markupPerGram.toFixed(2)}`}
+                                description="Premium added per gram"
+                            />
+                            <ResultCard
+                                label="Total Gold Value"
+                                value={`$${results.totalGoldValue.toFixed(2)}`}
+                                description="Total raw value of gold in the item"
+                            />
+                            <ResultCard
+                                label="Total Markup"
+                                value={`$${results.totalMarkup.toFixed(2)}`}
+                                description="Premium over raw gold value"
                             />
                             <ResultCard
                                 label="Markup Percentage"
                                 value={`${results.markupPercentage.toFixed(2)}%`}
-                                description="Premium over raw gold value"
+                                description="Markup as a % of gold value"
                             />
                         </div>
                     </div>

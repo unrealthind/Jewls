@@ -1,6 +1,8 @@
-
 export interface CalculationResult {
-  pricePerGram: number;
-  pricePerTola: number;
+  jewelryPricePerGram: number;
   markupPercentage: number;
+  goldPricePerGramOfJewelry: number;
+  markupPerGram: number;
+  totalMarkup: number;
+  totalGoldValue: number;
 }
