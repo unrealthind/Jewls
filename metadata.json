@@ -1,0 +1,5 @@
+{
+  "name": "Gold Jewelry Markup Calculator",
+  "description": "A sleek and intuitive application to calculate the markup on gold jewelry based on live Canadian gold prices. Users can input the jewelry's price, weight, and gold purity (karat) to determine the price per gram, per tola (10 grams), and the precise markup percentage over the raw gold value.",
+  "requestFramePermissions": []
+}
